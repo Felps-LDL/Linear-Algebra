@@ -45,7 +45,6 @@ void seta_valores()
     A[2][1] = A[2][3] = 1;
     A[3][2] = A[3][4] = 1;
     A[4][3] = 1;
-
 }
 
 int menu()
@@ -67,12 +66,13 @@ void lista_caminhos(int opcao)
 {
     if (opcao == 1)
     {
-        if (A[vertice1 - 1][vertice2 - 1]) cout << vertice1 << " -> " << vertice2 << endl;
+        if(A[vertice1 - 1][vertice2 - 1]) cout << vertice1 << " -> " << vertice2 << endl;
     }
     else if (opcao == 2)
     {
         for (int i = 0; i < 5; i++)
         {
+            // Descobrir qual vizinho do vértice 1 que chega no vértice 2
             if (A[vertice1 - 1][i] && A[i][vertice2 - 1])
             {
                 cout << vertice1 << " -> " << i + 1 << " -> " << vertice2 << endl;
@@ -86,7 +86,11 @@ void lista_caminhos(int opcao)
         {
             for (int j = 0; j < 5; j++)
             {
-                if (A[vertice1 - 1][i] && A[i][j] && A[j][vertice2 - 1])
+                // Verificando quem é vizinho do vértice 1
+                if (!A[vertice1 - 1][i]) break;
+                
+                // Verificando os vizinhos desse primeiro vizinho e vendo se eles conseguem chegar no vértice 2
+                if (A[i][j] && A[j][vertice2 - 1])
                 {
                     cout << vertice1 << " -> " << i + 1 << " -> " << j + 1 << " -> " << vertice2 << endl;
                 }
@@ -136,7 +140,7 @@ void opcao3()
 void opcao4()
 {
     possibilidades = aij3(vertice1, vertice2) + aij(vertice1, vertice2) + A[vertice1 - 1][vertice2 - 1];
-    cout << possibilidades << endl;
+    cout << "Possibilidade(s): " << possibilidades << endl;
 
     if (possibilidades == 0) return;
 
